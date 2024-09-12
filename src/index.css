@@ -1,1 +1,22 @@
 @import 'modern-normalize/modern-normalize.css';
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@700&display=swap');
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+*,
+*::after,
+*::before {
+  font-family: 'League Spartan', sans-serif;
+  font-weight: 700;
+}

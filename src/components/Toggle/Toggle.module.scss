@@ -1,0 +1,46 @@
+.labels {
+  margin: 0 auto;
+
+  display: flex;
+  justify-content: space-between;
+  width: 50px;
+}
+
+.toggle {
+  display: flex;
+  justify-content: space-around;
+  width: 70px;
+  padding: 2px;
+
+  border-radius: 16px;
+  background-color: lightgray;
+}
+
+.labelEl {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.option {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+.input:checked + .option {
+  background-color: tomato;
+}
+
+.input:focus-visible + .option {
+  box-shadow: 0 0 0 4px rgb(35, 221, 35);
+}
