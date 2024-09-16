@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import ThemeToggle from '../ThemeToggle/ThemeToggle';
 import s from './App.module.scss';
 
@@ -5,7 +6,7 @@ const keys: string[] = [
   '7',
   '8',
   '9',
-  'del',
+  'DEL',
   '4',
   '5',
   '6',
@@ -18,7 +19,7 @@ const keys: string[] = [
   '0',
   '/',
   'x',
-  'reset',
+  'RESET',
   '=',
 ];
 
@@ -31,11 +32,20 @@ function App() {
           <ThemeToggle />
         </section>
 
-        <p>399,981</p>
+        <p className={s.screen}>399,981</p>
 
         <div className="keyboard">
           {keys.map((key, i) => (
-            <button type="button" key={i}>
+            <button
+              type="button"
+              key={i}
+              className={clsx([
+                s.key,
+                key === 'DEL' && s.del,
+                key === 'RESET' && s.reset,
+                key === '=' && s.equal,
+              ])}
+            >
               {key}
             </button>
           ))}
