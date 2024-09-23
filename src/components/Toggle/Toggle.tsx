@@ -2,7 +2,8 @@ import s from './Toggle.module.scss';
 
 export default function Toggle() {
   return (
-    <div>
+    <div className={s.wrapper}>
+      <p className={s.title}>THEME</p>
       <div className={s.labels}>
         <span>1</span>
         <span>2</span>

@@ -1,0 +1,11 @@
+.screen {
+  margin-top: 24px;
+  padding: 20px;
+
+  font-size: var(--screen-fz);
+  line-height: 1.1;
+  text-align: right;
+
+  background-color: var(--screen-background);
+  border-radius: 8px;
+}

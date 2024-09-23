@@ -1,49 +1,7 @@
 .container {
   margin: 0 auto;
-
-  padding: 24px;
+  padding: 22px;
   width: 375px;
 
   border: 2px dotted tomato;
-}
-
-.top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  min-height: 60px;
-}
-
-.title {
-  font-size: 24px;
-}
-
-.toggleWrapper {
-  display: flex;
-  align-items: center;
-}
-
-.screen {
-  font-size: var(--screen-fz);
-  line-height: 1.1;
-  padding: 20px;
-  border-radius: 8px;
-  background-color: var(--screen-background);
-  text-align: right;
-}
-
-.key {
-  background-color: yellow;
-}
-
-.del {
-  background-color: orange;
-}
-
-.reset {
-  background-color: lightblue;
-}
-
-.equal {
-  background-color: teal;
 }

@@ -3,7 +3,8 @@
   --desktop: 1440px;
 
   --screen-fz: 39px;
-  --numbers-fz: 32px;
+  --keys-fz: 32px;
+  --del-reset-fz: 19px;
 
   --main-background-color: hsl(0, 0%, 90%);
   --toggle-keypad-background: hsl(0, 5%, 81%);
@@ -15,10 +16,12 @@
 
   --main-key-background: hsl(45, 7%, 89%);
   --main-key-shadow: hsl(35, 11%, 61%);
-  --second-key-background: hsl(25, 98%, 40%);
-  --second-key-shadow: hsl(25, 99%, 27%);
-  --third-key-background: hsl(45, 7%, 89%);
-  --third-key-shadow: hsl(35, 11%, 61%);
+
+  --del-reset-key-background: hsl(25, 98%, 40%);
+  --del-reset-key-shadow: hsl(25, 99%, 27%);
+
+  --equal-key-background: hsl(185, 42%, 37%);
+  --equal-key-shadow: hsl(185, 58%, 25%);
 }
 
 [theme='dark'] {
