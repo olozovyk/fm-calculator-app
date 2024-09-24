@@ -8,10 +8,12 @@
 
   --main-background-color: hsl(0, 0%, 90%);
   --toggle-keypad-background: hsl(0, 5%, 81%);
+  --toggle-circle: hsl(25, 98%, 40%);
   --screen-background: hsl(0, 0%, 93%);
 
   --main-text-color: hsl(60, 10%, 19%);
-  --second-text-color: hsl(0, 0%, 100%);
+  --keys-text-color: hsl(60, 10%, 19%);
+  --del-reset-key-color: hsl(0, 0%, 100%);
   --equal-text-color: hsl(0, 0%, 100%);
 
   --main-key-background: hsl(45, 7%, 89%);
@@ -27,33 +29,41 @@
 [theme='dark'] {
   --main-background-color: hsl(222, 26%, 31%);
   --toggle-keypad-background: hsl(223, 31%, 20%);
+  --toggle-circle: hsl(6, 63%, 50%);
   --screen-background: hsl(224, 36%, 15%);
 
-  --main-text-color: hsl(221, 14%, 31%);
-  --second-text-color: hsl(0, 0%, 100%);
+  --main-text-color: hsl(0, 0%, 100%);
+  --keys-text-color: hsl(60, 10%, 19%);
+  --del-reset-key-color: hsl(0, 0%, 100%);
   --equal-text-color: hsl(0, 0%, 100%);
 
-  --main-key-background: hsl(225, 21%, 49%);
-  --main-key-shadow: hsl(224, 28%, 35%);
-  --second-key-background: hsl(6, 63%, 50%);
-  --second-key-shadow: hsl(6, 70%, 34%);
-  --third-key-background: hsl(30, 25%, 89%);
-  --third-key-shadow: hsl(28, 16%, 65%);
+  --main-key-background: hsl(30, 25%, 89%);
+  --main-key-shadow: hsl(28, 16%, 65%);
+
+  --del-reset-key-background: hsl(225, 21%, 49%);
+  --del-reset-key-shadow: hsl(224, 28%, 35%);
+
+  --equal-key-background: hsl(6, 63%, 50%);
+  --equal-key-shadow: hsl(6, 70%, 34%);
 }
 
 [theme='color'] {
   --main-background-color: hsl(268, 75%, 9%);
   --toggle-keypad-background: hsl(268, 71%, 12%);
+  --toggle-circle: hsl(176, 100%, 44%);
   --screen-background: hsl(268, 71%, 12%);
 
   --main-text-color: hsl(52, 100%, 62%);
-  --second-text-color: hsl(0, 0%, 100%);
+  --keys-text-color: hsl(52, 100%, 62%);
+  --del-reset-key-color: hsl(0, 0%, 100%);
   --equal-text-color: hsl(198, 20%, 13%);
 
-  --main-key-background: hsl(281, 89%, 26%);
-  --main-key-shadow: hsl(285, 91%, 52%);
-  --second-key-background: hsl(176, 100%, 44%);
-  --second-key-shadow: hsl(177, 92%, 70%);
-  --third-key-background: hsl(268, 47%, 21%);
-  --third-key-shadow: hsl(290, 70%, 36%);
+  --main-key-background: hsl(268, 47%, 21%);
+  --main-key-shadow: hsl(290, 70%, 36%);
+
+  --del-reset-key-background: hsl(281, 89%, 26%);
+  --del-reset-key-shadow: hsl(285, 91%, 52%);
+
+  --equal-key-background: hsl(176, 100%, 44%);
+  --equal-key-shadow: hsl(177, 92%, 70%);
 }

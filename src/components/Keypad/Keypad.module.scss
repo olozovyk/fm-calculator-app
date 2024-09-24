@@ -16,7 +16,7 @@
   height: 60px;
 
   font-size: var(--keys-fz);
-  color: var(--main-text-color);
+  color: var(--keys-text-color);
 
   background-color: var(--main-key-background);
   box-shadow:
@@ -26,7 +26,7 @@
   border: none;
 
   cursor: pointer;
-  transition: box-shadow 100ms linear;
+  transition: box-shadow 50ms ease-in;
 }
 
 .key:active {
@@ -45,12 +45,12 @@
 .del,
 .reset {
   padding-top: 22px;
-  color: var(--second-text-color);
+  color: var(--del-reset-key-color);
   background-color: var(--del-reset-key-background);
   box-shadow:
     inset 0 0 0 var(--del-reset-key-shadow),
     0 4px 1px var(--del-reset-key-shadow);
-  transition: box-shadow 100ms linear;
+  transition: box-shadow 50ms ease-in;
 }
 
 .del:active,
@@ -73,7 +73,7 @@
   box-shadow:
     inset 0 0 0 var(--equal-key-shadow),
     0 4px 1px var(--equal-key-shadow);
-  transition: box-shadow 100ms linear;
+  transition: box-shadow 50ms ease-in;
 }
 
 .equal:active {

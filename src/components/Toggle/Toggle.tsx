@@ -1,6 +1,12 @@
+import { ChangeEvent } from 'react';
 import s from './Toggle.module.scss';
 
-export default function Toggle() {
+interface IProps {
+  onThemeChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  theme: 'dark' | 'light' | 'color' | undefined;
+}
+
+export default function Toggle({ onThemeChange, theme }: IProps) {
   return (
     <div className={s.wrapper}>
       <p className={s.title}>THEME</p>
@@ -11,15 +17,37 @@ export default function Toggle() {
       </div>
       <div className={s.toggle}>
         <label className={s.labelEl}>
-          <input className={s.input} type="radio" name="theme" />
+          <input
+            className={s.input}
+            type="radio"
+            name="theme"
+            value="dark"
+            onChange={onThemeChange}
+            checked={theme === 'dark'}
+          />
           <div className={s.option}></div>
         </label>
         <label className={s.labelEl}>
-          <input className={s.input} type="radio" name="theme" defaultChecked />
+          <input
+            className={s.input}
+            type="radio"
+            name="theme"
+            value="light"
+            defaultChecked
+            onChange={onThemeChange}
+            checked={theme === 'light'}
+          />
           <div className={s.option}></div>
         </label>
         <label className={s.labelEl}>
-          <input className={s.input} type="radio" name="theme" />
+          <input
+            className={s.input}
+            type="radio"
+            name="theme"
+            value="color"
+            onChange={onThemeChange}
+            checked={theme === 'color'}
+          />
           <div className={s.option}></div>
         </label>
       </div>

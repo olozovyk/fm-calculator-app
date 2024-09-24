@@ -37,7 +37,7 @@
   align-items: center;
   padding: 2px;
 
-  background-color: lightgray;
+  background-color: var(--toggle-keypad-background);
   border-radius: 16px;
 }
 
@@ -63,7 +63,7 @@
 }
 
 .input:checked + .option {
-  background-color: tomato;
+  background-color: var(--toggle-circle);
 }
 
 .input:focus-visible + .option {
