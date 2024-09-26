@@ -1,10 +1,11 @@
 import { ChangeEvent } from 'react';
 import Toggle from '../Toggle/Toggle';
 import s from './Header.module.scss';
+import { Theme } from '../../types';
 
 interface IProps {
   onThemeChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  theme: 'dark' | 'light' | 'color' | undefined;
+  theme: Theme;
 }
 
 export default function Header({ onThemeChange, theme }: IProps) {

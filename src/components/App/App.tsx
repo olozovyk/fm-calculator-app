@@ -4,12 +4,13 @@ import Header from '../Header/Header';
 import Screen from '../Screen/Screen';
 import Keypad from '../Keypad/Keypad';
 import useTheme from '../../hooks/useTheme';
+import { Theme } from '../../types';
 
 function App() {
   const [theme, setTheme] = useTheme();
 
   const onChangeTheme = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.currentTarget.value as 'dark' | 'light' | 'color';
+    const value = e.currentTarget.value as Theme;
     if (!value) return;
     setTheme(value);
   };

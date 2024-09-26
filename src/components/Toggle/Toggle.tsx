@@ -1,9 +1,10 @@
 import { ChangeEvent } from 'react';
 import s from './Toggle.module.scss';
+import { Theme } from '../../types';
 
 interface IProps {
   onThemeChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  theme: 'dark' | 'light' | 'color' | undefined;
+  theme: Theme;
 }
 
 export default function Toggle({ onThemeChange, theme }: IProps) {
@@ -33,7 +34,6 @@ export default function Toggle({ onThemeChange, theme }: IProps) {
             type="radio"
             name="theme"
             value="light"
-            defaultChecked
             onChange={onThemeChange}
             checked={theme === 'light'}
           />
