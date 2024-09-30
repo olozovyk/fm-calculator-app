@@ -1,12 +1,20 @@
+'use client';
+
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { Theme } from '../types';
 
 const getThemeFromLocalStorage = (): Theme | null => {
-  return localStorage.getItem('theme') as Theme | null;
+  if (typeof window !== 'undefined') {
+    return localStorage.getItem('theme') as Theme | null;
+  }
+  return null;
 };
 
 const isSystemDefaultThemeDark = (): boolean => {
-  return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if (typeof window !== 'undefined') {
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+  return false;
 };
 
 const getCurrentTheme = (): Theme => {
@@ -17,8 +25,15 @@ const getCurrentTheme = (): Theme => {
   );
 };
 
-export default function useTheme(): [Theme, Dispatch<SetStateAction<Theme>>] {
-  const [theme, setTheme] = useState<Theme>(() => getCurrentTheme());
+export default function useTheme(): [
+  Theme | undefined,
+  Dispatch<SetStateAction<Theme | undefined>>,
+] {
+  const [theme, setTheme] = useState<Theme | undefined>();
+
+  useEffect(() => {
+    setTheme(getCurrentTheme());
+  }, []);
 
   useEffect(() => {
     if (!theme) return;

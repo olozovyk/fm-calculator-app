@@ -1,13 +1,13 @@
 import { ChangeEvent } from 'react';
+import { Theme } from '@/app/types';
 import s from './Toggle.module.scss';
-import { Theme } from '../../types';
 
 interface IProps {
-  onThemeChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  theme: Theme;
+  onChangeTheme: (e: ChangeEvent<HTMLInputElement>) => void;
+  theme: Theme | undefined;
 }
 
-export default function Toggle({ onThemeChange, theme }: IProps) {
+export default function Toggle({ onChangeTheme, theme }: IProps) {
   return (
     <div className={s.wrapper}>
       <p className={s.title}>THEME</p>
@@ -23,7 +23,7 @@ export default function Toggle({ onThemeChange, theme }: IProps) {
             type="radio"
             name="theme"
             value="dark"
-            onChange={onThemeChange}
+            onChange={onChangeTheme}
             checked={theme === 'dark'}
           />
           <div className={s.option}></div>
@@ -34,7 +34,7 @@ export default function Toggle({ onThemeChange, theme }: IProps) {
             type="radio"
             name="theme"
             value="light"
-            onChange={onThemeChange}
+            onChange={onChangeTheme}
             checked={theme === 'light'}
           />
           <div className={s.option}></div>
@@ -45,7 +45,7 @@ export default function Toggle({ onThemeChange, theme }: IProps) {
             type="radio"
             name="theme"
             value="color"
-            onChange={onThemeChange}
+            onChange={onChangeTheme}
             checked={theme === 'color'}
           />
           <div className={s.option}></div>
