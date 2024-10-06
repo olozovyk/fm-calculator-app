@@ -1,28 +1,24 @@
 import clsx from 'clsx';
 import s from './Keypad.module.scss';
+import { keys } from '@/app/constants';
+import { MouseEvent } from 'react';
 
-const keys: string[] = [
-  '7',
-  '8',
-  '9',
-  'DEL',
-  '4',
-  '5',
-  '6',
-  '+',
-  '1',
-  '2',
-  '3',
-  '-',
-  '.',
-  '0',
-  '/',
-  'x',
-  'RESET',
-  '=',
-];
+interface IKeypad {
+  onKeyClick: (e: MouseEvent<HTMLButtonElement>) => void;
+}
 
-export default function Keypad() {
+const getId = (key: string): string => {
+  if (key === 'DEL') return 'keyDel';
+  if (key === '+') return 'keyAdd';
+  if (key === '-') return 'keySub';
+  if (key === '*') return 'keyMult';
+  if (key === '/') return 'keyDiv';
+  if (key === 'RESET') return 'keyReset';
+  if (key === '=') return 'keyEqual';
+  return `key${key}`;
+};
+
+export default function Keypad({ onKeyClick }: IKeypad) {
   return (
     <div className={s.keypad}>
       {keys.map((key, i) => (
@@ -35,6 +31,11 @@ export default function Keypad() {
             key === 'RESET' && s.reset,
             key === '=' && s.equal,
           ])}
+          id={getId(key)}
+          onClick={(e) => {
+            if (!e.currentTarget.textContent) return;
+            onKeyClick(e);
+          }}
         >
           {key}
         </button>

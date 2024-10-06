@@ -16,7 +16,6 @@ p {
 }
 
 body {
-  font-family: 'League Spartan', sans-serif;
   color: var(--main-text-color);
   background-color: var(--main-background-color);
 }
