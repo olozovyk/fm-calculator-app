@@ -5,15 +5,18 @@ import useTheme from './hooks/useTheme';
 import Header from './components/Header/Header';
 import Screen from './components/Screen/Screen';
 import Keypad from './components/Keypad/Keypad';
-import { Key, Operation, Theme } from './types';
+import { Key, Operation, OperationType, Theme } from './types';
 import s from './page.module.scss';
+import { calculate } from './utils';
 
 export default function Home() {
   const [theme, setTheme] = useTheme();
 
   const [input, setInput] = useState<Key[]>([]);
   const [result, setResult] = useState<number>(0);
-  const [prevOperation, setPrevOperation] = useState<Operation | null>(null);
+  const [prevOperation, setPrevOperation] = useState<OperationType | null>(
+    null,
+  );
   const [showResult, setShowResult] = useState<boolean>(false);
 
   const onChangeTheme = (e: ChangeEvent<HTMLInputElement>) => {
@@ -60,21 +63,29 @@ export default function Home() {
     return arr.join('');
   };
 
-  const handlerOperation = (operation: Operation) => {
+  const handleOperation = (operation: OperationType) => {
     setResult((prev) => {
-      if (prevOperation === '+') {
-        return prev + Number(normalizeInput(input));
+      if (prevOperation === Operation.ADD) {
+        return calculate(prev, Number(normalizeInput(input)), Operation.ADD);
       }
-      if (prevOperation === '-') {
-        return prev - Number(normalizeInput(input));
+      if (prevOperation === Operation.SUBTRACT) {
+        return calculate(
+          prev,
+          Number(normalizeInput(input)),
+          Operation.SUBTRACT,
+        );
       }
-      if (prevOperation === 'x') {
-        return prev * Number(normalizeInput(input));
+      if (prevOperation === Operation.MULTIPLY) {
+        return calculate(
+          prev,
+          Number(normalizeInput(input)),
+          Operation.MULTIPLY,
+        );
       }
-      if (prevOperation === '/') {
-        return prev / Number(normalizeInput(input));
+      if (prevOperation === Operation.DIVIDE) {
+        return calculate(prev, Number(normalizeInput(input)), Operation.DIVIDE);
       }
-      if (prevOperation === '=') {
+      if (prevOperation === Operation.EQUAL) {
         return prev;
       }
       return Number(normalizeInput(input));
@@ -91,8 +102,24 @@ export default function Home() {
       onDigitClick(e);
     }
 
-    if (key?.match(/^[\+\-x\/\=]$/)) {
-      handlerOperation(key as Operation);
+    if (key === '+') {
+      handleOperation(Operation.ADD);
+    }
+
+    if (key === '-') {
+      handleOperation(Operation.SUBTRACT);
+    }
+
+    if (key === 'x') {
+      handleOperation(Operation.MULTIPLY);
+    }
+
+    if (key === '/') {
+      handleOperation(Operation.DIVIDE);
+    }
+
+    if (key === '=') {
+      handleOperation(Operation.EQUAL);
     }
 
     if (key === 'DEL') {
