@@ -1,23 +1,29 @@
 'use client';
 
-import { ChangeEvent, MouseEvent, useState } from 'react';
+import { ChangeEvent, MouseEvent, useEffect, useState } from 'react';
 import useTheme from './hooks/useTheme';
 import Header from './components/Header/Header';
 import Screen from './components/Screen/Screen';
 import Keypad from './components/Keypad/Keypad';
-import { Key, Operation, OperationType, Theme } from './types';
-import s from './page.module.scss';
 import { calculate } from './utils';
+import {
+  Key,
+  Operation,
+  OperationType,
+  OperationTypeExcludeEqual,
+  Theme,
+} from './types';
+import s from './page.module.scss';
 
 export default function Home() {
   const [theme, setTheme] = useTheme();
 
   const [input, setInput] = useState<Key[]>([]);
   const [result, setResult] = useState<number>(0);
-  const [prevOperation, setPrevOperation] = useState<OperationType | null>(
-    null,
-  );
+  const [prevOperation, setPrevOperation] =
+    useState<OperationTypeExcludeEqual | null>(null);
   const [showResult, setShowResult] = useState<boolean>(false);
+  const [isEqualMode, setIsEqualMode] = useState<boolean>(false);
 
   const onChangeTheme = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.currentTarget.value as Theme;
@@ -27,12 +33,22 @@ export default function Home() {
 
   const onDigitClick = (e: MouseEvent<HTMLButtonElement>) => {
     const keyText = e.currentTarget.textContent;
+
+    if (showResult) {
+      setInput([]);
+      setShowResult(false);
+    }
+
+    if (isEqualMode) {
+      setResult(0);
+      setIsEqualMode(false);
+      setPrevOperation(null);
+    }
+
     setInput((prev) => {
-      if (!keyText) {
+      if (input.length >= 13 || !keyText) {
         return prev;
       }
-
-      setShowResult(false);
 
       if (keyText === '.' && prev.length === 0) {
         return ['0', '.'];
@@ -46,7 +62,51 @@ export default function Home() {
     });
   };
 
+  const normalizeInput = (arr: string[]): number => {
+    return Number(arr.join(''));
+  };
+
+  const handleOperation = (operation: OperationType) => {
+    if (!prevOperation && !input.length) {
+      return;
+    }
+
+    if (isEqualMode && operation !== Operation.EQUAL) {
+      setIsEqualMode(false);
+      setInput([]);
+      setPrevOperation(operation);
+      return;
+    }
+
+    if (operation !== Operation.EQUAL) {
+      if (!prevOperation && input) {
+        setResult(normalizeInput(input));
+        setShowResult(true);
+        setPrevOperation(operation);
+        return;
+      }
+
+      setResult((prev) => calculate(prev, normalizeInput(input), operation));
+      setShowResult(true);
+      setPrevOperation(operation);
+      return;
+    }
+
+    if (operation === Operation.EQUAL) {
+      if (!prevOperation) return;
+
+      setIsEqualMode(true);
+      setResult((prev) =>
+        calculate(prev, normalizeInput(input), prevOperation),
+      );
+      setShowResult(true);
+      return;
+    }
+  };
+
   const onDelClick = () => {
+    if (showResult) return;
+
     setInput((prev) => {
       return prev.slice(0, prev.length - 1);
     });
@@ -57,42 +117,6 @@ export default function Home() {
     setResult(0);
     setShowResult(false);
     setPrevOperation(null);
-  };
-
-  const normalizeInput = (arr: string[]) => {
-    return arr.join('');
-  };
-
-  const handleOperation = (operation: OperationType) => {
-    setResult((prev) => {
-      if (prevOperation === Operation.ADD) {
-        return calculate(prev, Number(normalizeInput(input)), Operation.ADD);
-      }
-      if (prevOperation === Operation.SUBTRACT) {
-        return calculate(
-          prev,
-          Number(normalizeInput(input)),
-          Operation.SUBTRACT,
-        );
-      }
-      if (prevOperation === Operation.MULTIPLY) {
-        return calculate(
-          prev,
-          Number(normalizeInput(input)),
-          Operation.MULTIPLY,
-        );
-      }
-      if (prevOperation === Operation.DIVIDE) {
-        return calculate(prev, Number(normalizeInput(input)), Operation.DIVIDE);
-      }
-      if (prevOperation === Operation.EQUAL) {
-        return prev;
-      }
-      return Number(normalizeInput(input));
-    });
-    setShowResult(true);
-    setInput([]);
-    setPrevOperation(operation);
   };
 
   const onKeyClick = (e: MouseEvent<HTMLButtonElement>) => {
@@ -140,6 +164,15 @@ export default function Home() {
     }
     return Number(input.join(''));
   };
+
+  useEffect(() => {
+    console.log('INPUT:', input);
+    console.log('RESULT:', result);
+    console.log('OPERATION:', prevOperation);
+    console.log('SHOW_RESULT:', showResult);
+    console.log('IS_EQUAL_MODE:', isEqualMode);
+    console.log('-------------------------');
+  }, [input, result, prevOperation, showResult, isEqualMode]);
 
   return (
     theme && (
