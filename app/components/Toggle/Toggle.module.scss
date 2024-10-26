@@ -1,11 +1,14 @@
 .wrapper {
-  height: 30px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto auto;
+  width: 140px;
 }
 
+/* TODO: delete margin and padding, there are defaults on the project */
 .title {
+  margin: 0;
+  padding: 0;
   padding-top: 5px;
   grid-row: 2 / 3;
   grid-column: 1 / 2;
@@ -15,7 +18,7 @@
   text-transform: uppercase;
 }
 
-.labels {
+.markers {
   margin: 0 auto;
   width: 50px;
   grid-row: 1 / 2;
@@ -28,27 +31,33 @@
 }
 
 .toggle {
+  position: relative;
+
   height: 26px;
   width: 70px;
   grid-row: 2 / 3;
   grid-column: 2 / 3;
+
+  border-radius: 24px;
+  border-radius: 16px;
+  background-color: var(--toggle-keypad-background);
+}
+
+.inputs {
+  height: 100%;
   display: flex;
   justify-content: space-around;
-  align-items: center;
-  padding: 2px;
-
-  background-color: var(--toggle-keypad-background);
-  border-radius: 16px;
+  align-items: stretch;
 }
 
-.labelEl {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.inputs label {
+  width: 100%;
+  height: 100%;
   flex-grow: 1;
+  cursor: pointer;
 }
 
-.input {
+.inputs input[type='radio'] {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -56,16 +65,23 @@
   clip: rect(0 0 0 0);
 }
 
+.optionFrame {
+  position: absolute;
+  left: 4px;
+  top: 5px;
+  pointer-events: none;
+}
+
 .option {
   width: 16px;
   height: 16px;
+
   border-radius: 50%;
-}
-
-.input:checked + .option {
   background-color: var(--toggle-circle);
+  transition: transform 200ms ease;
 }
 
-.input:focus-visible + .option {
+.active {
+  /* TODO: move to vars: */
   box-shadow: 0 0 0 4px rgb(35, 221, 35);
 }

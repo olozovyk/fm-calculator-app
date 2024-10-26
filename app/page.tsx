@@ -71,21 +71,27 @@ export default function Home() {
       return;
     }
 
-    if (isEqualMode && operation !== Operation.EQUAL) {
+    if (prevOperation === Operation.DIVIDE && Number(input.join()) === 0) {
+      // TODO: Error
+      console.log('Error');
+      return;
+    }
+
+    if (operation !== Operation.EQUAL && isEqualMode) {
       setIsEqualMode(false);
       setInput([]);
       setPrevOperation(operation);
       return;
     }
 
-    if (operation !== Operation.EQUAL) {
-      if (!prevOperation && input) {
-        setResult(normalizeInput(input));
-        setShowResult(true);
-        setPrevOperation(operation);
-        return;
-      }
+    if (operation !== Operation.EQUAL && !prevOperation && input) {
+      setResult(normalizeInput(input));
+      setShowResult(true);
+      setPrevOperation(operation);
+      return;
+    }
 
+    if (operation !== Operation.EQUAL) {
       setResult((prev) => calculate(prev, normalizeInput(input), operation));
       setShowResult(true);
       setPrevOperation(operation);

@@ -5,7 +5,7 @@ import s from './Header.module.scss';
 
 interface IProps {
   onChangeTheme: (e: ChangeEvent<HTMLInputElement>) => void;
-  theme: Theme | undefined;
+  theme: Theme;
 }
 
 export default function Header({ onChangeTheme, theme }: IProps) {
