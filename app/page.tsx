@@ -91,6 +91,11 @@ export default function Home() {
       return;
     }
 
+    if (operation !== Operation.EQUAL && showResult) {
+      setPrevOperation(operation);
+      return;
+    }
+
     if (operation !== Operation.EQUAL) {
       setResult((prev) => calculate(prev, normalizeInput(input), operation));
       setShowResult(true);
