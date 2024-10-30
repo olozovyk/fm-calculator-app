@@ -40,9 +40,7 @@ export default function Home() {
     setTheme(value);
   };
 
-  const onDigitClick = (e: MouseEvent<HTMLButtonElement>) => {
-    const keyText = e.currentTarget.textContent;
-
+  const onDigitClick = (key: string) => {
     if (calculation.showResult) {
       setCalculation((prev) => ({
         ...prev,
@@ -61,21 +59,24 @@ export default function Home() {
     }
 
     setCalculation((prev) => {
-      if (prev.input.length >= 13 || !keyText) {
+      if (prev.input.length >= 13 || !key) {
         return { ...prev };
       }
-      if (keyText === '.' && prev.input.length === 0) {
+
+      if ((key === '.' || key === ',') && prev.input.length === 0) {
         return {
           ...prev,
           input: ['0', '.'],
         };
       }
-      if (keyText === '.' && prev.input.includes('.')) {
-        return prev;
+
+      if ((key === '.' || key === ',') && prev.input.includes('.')) {
+        return { ...prev };
       }
+
       return {
         ...prev,
-        input: [...prev.input, keyText],
+        input: key === ',' ? [...prev.input, '.'] : [...prev.input, key],
       };
     });
   };
@@ -182,8 +183,8 @@ export default function Home() {
   const onKeyClick = (e: MouseEvent<HTMLButtonElement>) => {
     const key = e.currentTarget.textContent;
 
-    if (key?.match(/^[\d|\.]$/)) {
-      onDigitClick(e);
+    if (key?.match(/^[\d|\.]$/) && key) {
+      onDigitClick(key);
     }
 
     if (key === '+') {
@@ -215,14 +216,56 @@ export default function Home() {
     }
   };
 
-  const resultToShow = () => {
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key.match(/^[\d|\.\,]$/)) {
+        onDigitClick(e.key);
+      }
+
+      if (e.key === '+') {
+        handleOperation(Operation.ADD);
+      }
+
+      if (e.key === '-') {
+        handleOperation(Operation.SUBTRACT);
+      }
+
+      if (e.key === '*') {
+        handleOperation(Operation.MULTIPLY);
+      }
+
+      if (e.key === '/') {
+        handleOperation(Operation.DIVIDE);
+      }
+
+      if (e.key === '=' || e.key === 'Enter') {
+        handleOperation(Operation.EQUAL);
+      }
+
+      if (e.key === 'Backspace') {
+        onDelClick();
+      }
+
+      if (e.key === 'Delete') {
+        onResetClick();
+      }
+    };
+
+    document.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.removeEventListener('keydown', onKeyDown);
+    };
+  });
+
+  const resultToShow = (): string | number => {
     if (calculation.input.length === 0 && !calculation.showResult) {
       return 0;
     }
     if (calculation.showResult) {
       return calculation.result;
     }
-    return Number(calculation.input.join(''));
+
+    return calculation.input.join('');
   };
 
   useEffect(() => {
