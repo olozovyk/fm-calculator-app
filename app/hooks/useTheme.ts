@@ -18,11 +18,17 @@ const isSystemDefaultThemeDark = (): boolean => {
 };
 
 const getCurrentTheme = (): Theme => {
-  return (
-    getThemeFromLocalStorage() ||
-    (isSystemDefaultThemeDark() && 'dark') ||
-    'light'
-  );
+  const themeFromLocalStorage = getThemeFromLocalStorage();
+
+  if (themeFromLocalStorage) {
+    return themeFromLocalStorage;
+  }
+
+  if (isSystemDefaultThemeDark()) {
+    return 'dark';
+  }
+
+  return 'light';
 };
 
 export default function useTheme(): [
