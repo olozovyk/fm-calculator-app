@@ -1,11 +1,11 @@
 .header {
   display: flex;
   justify-content: space-between;
-  min-height: 60px;
+  align-items: center;
+  height: 104px;
 }
 
 .title {
-  margin-left: 7px;
-  font-size: 33px;
-  align-self: center;
+  margin-left: 5px;
+  font-size: 30px;
 }

@@ -1,20 +1,18 @@
 .wrapper {
+  margin-top: -7px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto auto;
-  width: 140px;
+  width: 138px;
 }
 
-/* TODO: delete margin and padding, there are defaults on the project */
 .title {
-  margin: 0;
-  padding: 0;
   padding-top: 5px;
   grid-row: 2 / 3;
   grid-column: 1 / 2;
   align-self: center;
 
-  font-size: 14px;
+  font-size: 11px;
   text-transform: uppercase;
 }
 
@@ -26,8 +24,8 @@
   display: flex;
   justify-content: space-between;
 
-  font-size: 13px;
-  line-height: 1.7;
+  font-size: 11px;
+  line-height: 1.75;
 }
 
 .toggle {
@@ -67,7 +65,7 @@
 
 .optionFrame {
   position: absolute;
-  left: 4px;
+  left: 5px;
   top: 5px;
   pointer-events: none;
 }
