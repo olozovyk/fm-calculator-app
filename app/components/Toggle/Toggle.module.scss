@@ -1,9 +1,11 @@
 .wrapper {
-  margin-top: -7px;
+  margin-top: -3px;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto;
-  width: 138px;
+  grid-template-columns: 70px 70px;
+  grid-template-rows: 17px 27px;
+  width: 140px;
+  height: 44px;
+  // box-shadow: 0 0 1px 0 tomato;
 }
 
 .title {
@@ -11,8 +13,10 @@
   grid-row: 2 / 3;
   grid-column: 1 / 2;
   align-self: center;
+  margin-top: -2px;
 
   font-size: 11px;
+  letter-spacing: 2px;
   text-transform: uppercase;
 }
 
@@ -21,11 +25,9 @@
   width: 50px;
   grid-row: 1 / 2;
   grid-column: 2 / 3;
-  display: flex;
-  justify-content: space-between;
 
   font-size: 11px;
-  line-height: 1.75;
+  letter-spacing: 17px;
 }
 
 .toggle {
@@ -36,26 +38,22 @@
   grid-row: 2 / 3;
   grid-column: 2 / 3;
 
-  border-radius: 24px;
   border-radius: 16px;
   background-color: var(--toggle-keypad-background);
-}
 
-.inputs {
-  height: 100%;
   display: flex;
   justify-content: space-around;
   align-items: stretch;
 }
 
-.inputs label {
+.label {
   width: 100%;
   height: 100%;
   flex-grow: 1;
   cursor: pointer;
 }
 
-.inputs input[type='radio'] {
+.input {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -63,20 +61,18 @@
   clip: rect(0 0 0 0);
 }
 
-.optionFrame {
+.option {
   position: absolute;
   left: 5px;
   top: 5px;
-  pointer-events: none;
-}
-
-.option {
   width: 16px;
   height: 16px;
 
   border-radius: 50%;
   background-color: var(--toggle-circle);
   transition: transform 200ms ease;
+
+  pointer-events: none;
 }
 
 .active {

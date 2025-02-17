@@ -44,33 +44,26 @@ export default function Toggle({ theme, onChangeTheme }: ToggleProps) {
   return (
     <div className={s.wrapper}>
       <p className={s.title}>THEME</p>
-      <div className={s.markers}>
-        <span>1</span>
-        <span>2</span>
-        <span>3</span>
-      </div>
+      <div className={s.markers}>123</div>
       <div className={s.toggle}>
-        <div className={s.inputs}>
-          {themes.map((item, idx) => {
-            return (
-              <label key={idx}>
-                <input
-                  type="radio"
-                  name="theme"
-                  value={item}
-                  checked={theme === item}
-                  onChange={onChangeTheme}
-                  onFocus={onFocusInput}
-                  onBlur={onBlurInput}
-                />
-              </label>
-            );
-          })}
-        </div>
+        {themes.map((item, idx) => {
+          return (
+            <label className={s.label} key={idx}>
+              <input
+                className={s.input}
+                type="radio"
+                name="theme"
+                value={item}
+                checked={theme === item}
+                onChange={onChangeTheme}
+                onFocus={onFocusInput}
+                onBlur={onBlurInput}
+              />
+            </label>
+          );
+        })}
 
-        <div className={s.optionFrame}>
-          <div className={s.option} ref={circleRef}></div>
-        </div>
+        <div className={s.option} ref={circleRef}></div>
       </div>
     </div>
   );
