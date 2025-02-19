@@ -3,9 +3,18 @@
   justify-content: space-between;
   align-items: center;
   height: 104px;
+
+  @media screen and (min-width: 1024px) {
+    height: 109px;
+  }
 }
 
 .title {
   margin-left: 8px;
   font-size: 30px;
+
+  @media screen and (min-width: 1024px) {
+    margin-top: 14px;
+    font-size: 31px;
+  }
 }

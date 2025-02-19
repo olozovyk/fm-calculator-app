@@ -1,0 +1,10 @@
+.body {
+  color: var(--main-text-color);
+  background-color: var(--main-background-color);
+}
+
+@media screen and (min-width: 1024px) {
+  .body {
+    padding: 63px;
+  }
+}

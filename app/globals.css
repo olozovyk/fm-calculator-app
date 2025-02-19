@@ -14,8 +14,3 @@ h6 {
 p {
   margin: 0;
 }
-
-body {
-  color: var(--main-text-color);
-  background-color: var(--main-background-color);
-}

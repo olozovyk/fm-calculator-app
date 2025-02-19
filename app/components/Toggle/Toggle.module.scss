@@ -3,9 +3,13 @@
   display: grid;
   grid-template-columns: 70px 70px;
   grid-template-rows: 17px 27px;
-  width: 140px;
-  height: 44px;
-  // box-shadow: 0 0 1px 0 tomato;
+
+  @media screen and (min-width: 1024px) {
+    margin-top: 0;
+    grid-template-columns: 67px 70px;
+    grid-template-rows: 21px 26px;
+    box-shadow: 0 0 1px 0 tomato;
+  }
 }
 
 .title {
@@ -18,6 +22,12 @@
   font-size: 11px;
   letter-spacing: 2px;
   text-transform: uppercase;
+
+  @media screen and (min-width: 1024px) {
+    margin-top: -5px;
+    font-size: 12px;
+    letter-spacing: 1px;
+  }
 }
 
 .markers {
@@ -28,6 +38,11 @@
 
   font-size: 11px;
   letter-spacing: 17px;
+
+  @media screen and (min-width: 1024px) {
+    font-size: 15px;
+    letter-spacing: 15px;
+  }
 }
 
 .toggle {
