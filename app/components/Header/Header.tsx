@@ -10,9 +10,9 @@ interface IProps {
 
 export default function Header({ onChangeTheme, theme }: IProps) {
   return (
-    <section className={s.header}>
+    <header className={s.header}>
       <h1 className={s.title}>calc</h1>
       <Toggle onChangeTheme={onChangeTheme} theme={theme} />
-    </section>
+    </header>
   );
 }

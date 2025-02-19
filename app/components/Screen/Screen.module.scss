@@ -1,10 +1,19 @@
 .screen {
-  padding: 22px;
-
-  font-size: var(--screen-fz);
-  line-height: 1.1;
-  text-align: right;
+  height: 88px;
+  display: flex;
+  align-items: center;
+  padding: 0 23px;
 
   background-color: var(--screen-background);
   border-radius: 8px;
+}
+
+.value {
+  flex-grow: 1;
+  margin-top: 1px;
+
+  font-size: var(--screen-fz);
+  letter-spacing: 0;
+  text-align: right;
+  vertical-align: middle;
 }

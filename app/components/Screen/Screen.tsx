@@ -5,5 +5,9 @@ interface IScreen {
 }
 
 export default function Screen({ value }: IScreen) {
-  return <p className={s.screen}>{value}</p>;
+  return (
+    <div className={s.screen}>
+      <p className={s.value}>{value}</p>
+    </div>
+  );
 }
