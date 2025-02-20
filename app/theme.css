@@ -1,8 +1,4 @@
 :root {
-  --screen-fz: 40px;
-  --keys-fz: 32px;
-  --del-reset-fz: 19px;
-
   --main-background-color: hsl(0, 0%, 90%);
   --toggle-keypad-background: hsl(0, 5%, 81%);
   --toggle-circle: hsl(25, 98%, 40%);
