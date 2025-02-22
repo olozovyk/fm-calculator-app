@@ -1,7 +1,7 @@
 import s from './Screen.module.scss';
 
 interface IScreen {
-  value: string | number;
+  value: string;
 }
 
 export default function Screen({ value }: IScreen) {

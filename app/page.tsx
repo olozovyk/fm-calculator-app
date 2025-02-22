@@ -257,15 +257,18 @@ export default function Home() {
     };
   });
 
-  const resultToShow = (): string | number => {
+  const resultToShow = (): string => {
     if (calculation.input.length === 0 && !calculation.showResult) {
-      return 0;
-    }
-    if (calculation.showResult) {
-      return calculation.result;
+      return '0';
     }
 
-    return calculation.input.join('');
+    if (calculation.showResult) {
+      return new Intl.NumberFormat('en-US').format(calculation.result);
+    }
+
+    return new Intl.NumberFormat('en-US').format(
+      Number.parseFloat(calculation.input.join('')),
+    );
   };
 
   useEffect(() => {
