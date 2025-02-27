@@ -5,7 +5,7 @@ import useTheme from './hooks/useTheme';
 import Header from './components/Header/Header';
 import Screen from './components/Screen/Screen';
 import Keypad from './components/Keypad/Keypad';
-import { calculate } from './utils';
+import { calculate, getFormattedOutput } from './utils';
 import {
   Key,
   Operation,
@@ -263,12 +263,10 @@ export default function Home() {
     }
 
     if (calculation.showResult) {
-      return new Intl.NumberFormat('en-US').format(calculation.result);
+      return getFormattedOutput(calculation.result);
     }
 
-    return new Intl.NumberFormat('en-US').format(
-      Number.parseFloat(calculation.input.join('')),
-    );
+    return getFormattedOutput(Number.parseFloat(calculation.input.join('')));
   };
 
   useEffect(() => {
