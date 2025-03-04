@@ -19,7 +19,7 @@ const trimFractionalPartInfinite = (n: number): number => {
   return Number.parseFloat(String(n).slice(0, MAXIMUM_NUMBER_LENGTH + 1));
 };
 
-export const getFormattedOutput = (n: number): string => {
+export const formatOutput = (n: number): string | null => {
   const isFinite = Number.isFinite(n);
 
   if (isFinite && getNumberLength(n) <= MAXIMUM_NUMBER_LENGTH) {
@@ -30,5 +30,5 @@ export const getFormattedOutput = (n: number): string => {
     return '~' + formatWithGrouping(trimFractionalPartInfinite(n));
   }
 
-  return 'e';
+  return null;
 };

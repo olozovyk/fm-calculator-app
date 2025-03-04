@@ -1,2 +1,3 @@
 export * from './calculate';
-export * from './formatOutputNumber';
+export * from './format-output';
+export * from './transform-array-to-number';

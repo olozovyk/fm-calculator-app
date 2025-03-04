@@ -1,17 +1,21 @@
 import { ChangeEvent, useEffect, useRef } from 'react';
 import useFocusVisible from '@/app/hooks/useFocusVisible';
+import useTheme from '@/app/hooks/useTheme';
 import { Theme } from '@/app/types';
 import s from './Toggle.module.scss';
 
-interface ToggleProps {
-  theme: Theme;
-  onChangeTheme: (e: ChangeEvent<HTMLInputElement>) => void;
-}
-
 const themes = ['dark', 'light', 'color'];
 
-export default function Toggle({ theme, onChangeTheme }: ToggleProps) {
+export default function Toggle() {
+  const [theme, setTheme] = useTheme();
+
   const circleRef = useRef<HTMLDivElement>(null);
+
+  const onChangeTheme = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.currentTarget.value as Theme;
+    if (!value) return;
+    setTheme(value);
+  };
 
   const isFocusVisible = useFocusVisible();
 
