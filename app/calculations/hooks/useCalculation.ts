@@ -59,10 +59,18 @@ export default function useCalculation() {
   };
 
   const handleOperation = (operation: OperationType) => {
-    if (!calculation.prevOperation && !calculation.input.length) {
+    if (operation !== Operation.EQUAL) {
+      setCalculation((prev) => ({
+        ...prev,
+        prevOperation: operation,
+      }));
+    }
+
+    if (calculation.input.length === 0) {
       return;
     }
 
+    // Divide to 0
     if (
       calculation.prevOperation === Operation.DIVIDE &&
       Number(calculation.input.join()) === 0
@@ -74,12 +82,12 @@ export default function useCalculation() {
       return;
     }
 
+    // Exit from equal mode
     if (operation !== Operation.EQUAL && calculation.isEqualMode) {
       setCalculation((prev) => ({
         ...prev,
         isEqualMode: false,
         input: [],
-        prevOperation: operation,
       }));
       return;
     }
@@ -91,17 +99,9 @@ export default function useCalculation() {
     ) {
       setCalculation((prev) => ({
         ...prev,
+        input: [],
         result: transformArrayToNumber(prev.input),
         showResult: true,
-        prevOperation: operation,
-      }));
-      return;
-    }
-
-    if (operation !== Operation.EQUAL && calculation.showResult) {
-      setCalculation((prev) => ({
-        ...prev,
-        prevOperation: operation,
       }));
       return;
     }
@@ -115,7 +115,6 @@ export default function useCalculation() {
           operation,
         ),
         showResult: true,
-        prevOperation: operation,
       }));
       return;
     }
@@ -203,7 +202,7 @@ export default function useCalculation() {
     if (process.env.NODE_ENV !== 'development') return;
     console.log('INPUT:', calculation.input);
     console.log('RESULT:', calculation.result);
-    console.log('OPERATION:', calculation.prevOperation);
+    console.log('PREV_OPERATION:', calculation.prevOperation);
     console.log('SHOW_RESULT:', calculation.showResult);
     console.log('RESULT_TO_SHOW:', calculation.resultToShow);
     console.log('IS_EQUAL_MODE:', calculation.isEqualMode);
