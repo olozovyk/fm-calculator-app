@@ -5,7 +5,7 @@ import {
   Operation,
   OperationType,
 } from '@/app/types';
-import useInputHandle from './useInputHandle';
+import useResultToShowHandle from './useResultToShowHandle';
 import useKeyListener from './useKeyListener';
 import { calculate, transformArrayToNumber } from '@/app/utils';
 
@@ -23,7 +23,7 @@ export default function useCalculation() {
     afterEqual: false,
   });
 
-  useInputHandle({ calculation, setCalculation, mode, setMode });
+  useResultToShowHandle({ calculation, setCalculation, mode, setMode });
 
   const handleDigit = (key: string) => {
     if (mode.show === 'result') {

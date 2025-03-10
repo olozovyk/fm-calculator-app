@@ -9,20 +9,21 @@ interface IParams {
   setMode: Dispatch<SetStateAction<IModeState>>;
 }
 
-export default function useInputHandle({
+export default function useResultToShowHandle({
   calculation,
   setCalculation,
   mode,
   setMode,
 }: IParams) {
   useEffect(() => {
-    if (mode.show !== 'result' && calculation.input.length === 0) {
+    if (mode.show === 'input' && calculation.input.length === 0) {
       setCalculation((prev) => ({ ...prev, resultToShow: '0' }));
       return;
     }
 
     if (mode.show === 'result') {
       const result = formatOutput(calculation.tempResult);
+
       if (result === null) {
         setMode((prev) => ({
           ...prev,
