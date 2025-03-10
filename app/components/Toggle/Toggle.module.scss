@@ -96,6 +96,5 @@
 }
 
 .active {
-  /* TODO: move to vars: */
-  box-shadow: 0 0 0 4px rgb(35, 221, 35);
+  box-shadow: 0 0 0 4px var(--toggle-circle-active);
 }

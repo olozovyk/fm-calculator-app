@@ -3,6 +3,7 @@
   --toggle-keypad-background: hsl(0, 5%, 81%);
   --toggle-circle: hsl(25, 98%, 40%);
   --toggle-circle-hover: hsl(25.76, 93.17%, 59.8%);
+  --toggle-circle-active: hsl(120, 73.23%, 50.2%);
   --screen-background: hsl(0, 0%, 93%);
 
   --main-text-color: hsl(60, 10%, 19%);

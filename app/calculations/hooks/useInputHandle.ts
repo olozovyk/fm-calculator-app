@@ -1,21 +1,33 @@
 import { Dispatch, SetStateAction, useEffect } from 'react';
-import { IOperationState } from '@/app/types';
+import { ICalculationState, IModeState } from '@/app/types';
 import { formatOutput } from '@/app/utils';
 
-export default function useInputHandle(
-  calculation: IOperationState,
-  setCalculation: Dispatch<SetStateAction<IOperationState>>,
-) {
+interface IParams {
+  calculation: ICalculationState;
+  setCalculation: Dispatch<SetStateAction<ICalculationState>>;
+  mode: IModeState;
+  setMode: Dispatch<SetStateAction<IModeState>>;
+}
+
+export default function useInputHandle({
+  calculation,
+  setCalculation,
+  mode,
+  setMode,
+}: IParams) {
   useEffect(() => {
-    if (calculation.input.length === 0 && !calculation.showResult) {
+    if (mode.show !== 'result' && calculation.input.length === 0) {
       setCalculation((prev) => ({ ...prev, resultToShow: '0' }));
       return;
     }
 
-    if (calculation.showResult) {
-      const result = formatOutput(calculation.result);
+    if (mode.show === 'result') {
+      const result = formatOutput(calculation.tempResult);
       if (result === null) {
-        setCalculation((prev) => ({ ...prev, isError: true }));
+        setMode((prev) => ({
+          ...prev,
+          show: 'error',
+        }));
         return;
       }
 
@@ -26,15 +38,19 @@ export default function useInputHandle(
     const result = formatOutput(Number.parseFloat(calculation.input.join('')));
 
     if (result === null) {
-      setCalculation((prev) => ({ ...prev, isError: true }));
+      setMode((prev) => ({
+        ...prev,
+        show: 'error',
+      }));
       return;
     }
 
     setCalculation((prev) => ({ ...prev, resultToShow: result }));
   }, [
     calculation.input,
-    calculation.result,
-    calculation.showResult,
+    calculation.tempResult,
+    mode.show,
     setCalculation,
+    setMode,
   ]);
 }

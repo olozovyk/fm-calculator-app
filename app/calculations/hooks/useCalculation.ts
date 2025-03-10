@@ -1,37 +1,61 @@
 import { useState, MouseEvent, useEffect } from 'react';
-import { IOperationState, Operation, OperationType } from '@/app/types';
+import {
+  ICalculationState,
+  IModeState,
+  Operation,
+  OperationType,
+} from '@/app/types';
 import useInputHandle from './useInputHandle';
 import useKeyListener from './useKeyListener';
 import { calculate, transformArrayToNumber } from '@/app/utils';
 
 export default function useCalculation() {
-  const [calculation, setCalculation] = useState<IOperationState>({
+  const [calculation, setCalculation] = useState<ICalculationState>({
     input: [],
-    result: 0,
+    tempResult: 0,
     prevOperation: null,
-    showResult: false,
     resultToShow: '0',
-    isEqualMode: false,
-    isError: false,
   });
 
-  useInputHandle(calculation, setCalculation);
+  const [mode, setMode] = useState<IModeState>({
+    show: 'input',
+    justPressedEqual: false,
+    afterEqual: false,
+  });
+
+  useInputHandle({ calculation, setCalculation, mode, setMode });
 
   const handleDigit = (key: string) => {
-    if (calculation.showResult) {
+    if (mode.show === 'result') {
+      setMode((prev) => ({
+        ...prev,
+        show: 'input',
+      }));
+
       setCalculation((prev) => ({
         ...prev,
         input: [],
-        showResult: false,
       }));
     }
 
-    if (calculation.isEqualMode) {
+    if (mode.justPressedEqual) {
+      setMode((prev) => ({
+        ...prev,
+        afterEqual: false,
+        justPressedEqual: false,
+      }));
+
       setCalculation((prev) => ({
         ...prev,
-        result: 0,
-        isEqualMode: false,
+        tempResult: 0,
         prevOperation: null,
+      }));
+    }
+
+    if (mode.afterEqual) {
+      setMode((prev) => ({
+        ...prev,
+        afterEqual: false,
       }));
     }
 
@@ -59,11 +83,24 @@ export default function useCalculation() {
   };
 
   const handleOperation = (operation: OperationType) => {
-    if (operation !== Operation.EQUAL) {
+    if (mode.justPressedEqual && operation !== Operation.EQUAL) {
+      setMode((prev) => ({
+        ...prev,
+        justPressedEqual: false,
+      }));
+    }
+
+    // Change operation if operation already exists
+    if (
+      mode.show === 'result' &&
+      calculation.prevOperation &&
+      operation !== Operation.EQUAL
+    ) {
       setCalculation((prev) => ({
         ...prev,
         prevOperation: operation,
       }));
+      return;
     }
 
     if (calculation.input.length === 0) {
@@ -75,18 +112,23 @@ export default function useCalculation() {
       calculation.prevOperation === Operation.DIVIDE &&
       Number(calculation.input.join()) === 0
     ) {
-      setCalculation((prev) => ({
+      setMode((prev) => ({
         ...prev,
-        isError: true,
+        show: 'error',
       }));
       return;
     }
 
-    // Exit from equal mode
-    if (operation !== Operation.EQUAL && calculation.isEqualMode) {
+    // Equal mode
+    if (mode.afterEqual && operation !== Operation.EQUAL) {
+      setMode((prev) => ({
+        ...prev,
+        afterEqual: false,
+      }));
+
       setCalculation((prev) => ({
         ...prev,
-        isEqualMode: false,
+        prevOperation: operation,
         input: [],
       }));
       return;
@@ -97,42 +139,69 @@ export default function useCalculation() {
       !calculation.prevOperation &&
       calculation.input
     ) {
+      setMode((prev) => ({
+        ...prev,
+        show: 'result',
+      }));
+
       setCalculation((prev) => ({
         ...prev,
         input: [],
-        result: transformArrayToNumber(prev.input),
-        showResult: true,
+        tempResult: transformArrayToNumber(prev.input),
+        prevOperation: operation,
       }));
       return;
     }
 
-    if (operation !== Operation.EQUAL) {
+    if (mode.show === 'result' && operation !== Operation.EQUAL) {
       setCalculation((prev) => ({
         ...prev,
-        result: calculate(
-          prev.result,
-          transformArrayToNumber(prev.input),
-          operation,
-        ),
-        showResult: true,
+        prevOperation: operation,
       }));
+    }
+
+    if (operation !== Operation.EQUAL) {
+      setMode((prev) => ({
+        ...prev,
+        show: 'result',
+      }));
+
+      setCalculation((prev) => {
+        if (!prev.prevOperation) {
+          return { ...prev, prevOperation: operation };
+        }
+        return {
+          ...prev,
+          tempResult: calculate(
+            prev.tempResult,
+            transformArrayToNumber(prev.input),
+            prev.prevOperation,
+          ),
+          prevOperation: operation,
+        };
+      });
       return;
     }
 
     if (operation === Operation.EQUAL) {
+      setMode((prev) => ({
+        ...prev,
+        show: 'result',
+        afterEqual: true,
+        justPressedEqual: true,
+      }));
+
       setCalculation((prev) => {
         if (!prev.prevOperation) {
           return { ...prev };
         }
         return {
           ...prev,
-          isEqualMode: true,
-          result: calculate(
-            prev.result,
+          tempResult: calculate(
+            prev.tempResult,
             transformArrayToNumber(prev.input),
             prev.prevOperation,
           ),
-          showResult: true,
         };
       });
       return;
@@ -140,7 +209,7 @@ export default function useCalculation() {
   };
 
   const handleDel = () => {
-    if (calculation.showResult) return;
+    if (mode.show === 'result') return;
 
     setCalculation((prev) => ({
       ...prev,
@@ -149,14 +218,18 @@ export default function useCalculation() {
   };
 
   const handleReset = () => {
+    setMode((prev) => ({
+      ...prev,
+      show: 'input',
+      afterEqual: true,
+      justPressedEqual: false,
+    }));
+
     setCalculation({
       input: [],
-      result: 0,
-      showResult: false,
+      tempResult: 0,
       prevOperation: null,
       resultToShow: '0',
-      isEqualMode: false,
-      isError: false,
     });
   };
 
@@ -201,26 +274,26 @@ export default function useCalculation() {
   useEffect(() => {
     if (process.env.NODE_ENV !== 'development') return;
     console.log('INPUT:', calculation.input);
-    console.log('RESULT:', calculation.result);
+    console.log('RESULT:', calculation.tempResult);
     console.log('PREV_OPERATION:', calculation.prevOperation);
-    console.log('SHOW_RESULT:', calculation.showResult);
     console.log('RESULT_TO_SHOW:', calculation.resultToShow);
-    console.log('IS_EQUAL_MODE:', calculation.isEqualMode);
-    console.log('IS_ERROR:', calculation.isError);
+    console.log('MODE:', mode.show);
+    console.log('AFTER_EQUAL:', mode.afterEqual);
+    console.log('JUST_EQUAL_PRESSED:', mode.justPressedEqual);
     console.log('-------------------------');
   }, [
     calculation.input,
-    calculation.result,
+    calculation.tempResult,
     calculation.prevOperation,
-    calculation.showResult,
     calculation.resultToShow,
-    calculation.isEqualMode,
-    calculation.isError,
+    mode.show,
+    mode.afterEqual,
+    mode.justPressedEqual,
   ]);
 
   return {
     onKeyClick,
     resultToShow: calculation.resultToShow,
-    isError: calculation.isError,
+    isError: mode.show === 'error',
   };
 }
