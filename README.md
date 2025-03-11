@@ -1,8 +1,30 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Frontend Mentor - Calculator App
+
+This is a solution to the [Calculator app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/calculator-app-9lteq5N29). This project is built using [Next.js](https://nextjs.org) and was bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
+## Features
+
+- Supports basic arithmetic operations: addition, subtraction, multiplication, and division.
+- Works with negative numbers and decimal values.
+- Keyboard support for easier input.
+- Three themes: light, dark, and colorful.
+- Smooth transitions and transformations for theme switching.
 
 ## Getting Started
 
-First, run the development server:
+First, install dependencies:
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+# or
+bun install
+```
+
+Then, run the development server:
 
 ```bash
 npm run dev
@@ -16,21 +38,33 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+You can start editing the page by modifying [`app/page.tsx`](app/page.tsx). The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Deployment
 
-## Learn More
+The project is deployed on Vercel and can be accessed at:\
+[Live Demo](https://fm-calculator-app-omega.vercel.app/)
 
-To learn more about Next.js, take a look at the following resources:
+To deploy on Vercel yourself, you can use the following link:\
+[Deploy to Vercel](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+For more details, check out the [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Built With
 
-## Deploy on Vercel
+- Semantic HTML5 markup
+- CSS Modules for styling
+- Flexbox
+- CSS Grid
+- Mobile-first workflow
+- [React](https://reactjs.org/) - JavaScript library
+- [Next.js](https://nextjs.org/) - React framework
+- [Sass](https://sass-lang.com/) - For styles
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Future Plans
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This is a small pet project that will not be actively maintained or improved further. The goal was to complete the challenge and move on to other projects.
+
+## Acknowledgments
+
+This project was inspired by the Frontend Mentor challenge. Special thanks to the Frontend Mentor community for their support and feedback.
